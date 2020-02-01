@@ -2,7 +2,7 @@
   "name": "pokemon",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "productName": "Pokémon App",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "Leonardo Trindade <ltrindade@inf.ufsm.br>",
