@@ -1,29 +1,22 @@
 <template>
-  <q-page class="q-pa-xl">
-    <div class="" style="max-width: 200px">
-      <q-list dense bordered padding
-      class="rounded-borders"
-      v-for='pokemon in ListaPokemon'
-      v-bind:key="pokemon.id"
-      >
-        <q-item clickable v-ripple>
-          <q-item-section>
-            ID: {{ pokemon.id }}
-          </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple>
-          <q-item-section>
-            Nome: {{ pokemon.name }}
-          </q-item-section>
-        </q-item>
-      </q-list>
+  <q-page class="q-pa-md">
+    <div class="row">
+      <div class="col-sm-12 col-md-3" v-for="pokemon in ListaPokemon" :key="pokemon">
+        <cardPokemon :ListaPokemon=pokemon></cardPokemon>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
+import cardPokemon from '../components/cardPokemon.vue';
+
 export default {
   name: 'ListaDePokemons',
+  components: {
+    cardPokemon,
+  },
+
   data() {
     return {
       ListaPokemon: null,

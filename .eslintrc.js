@@ -33,6 +33,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    'linebreak-style': 0,
     'no-param-reassign': 'off',
     'no-console': 'warn',
     'import/first': 'off',
