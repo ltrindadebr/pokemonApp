@@ -29,23 +29,32 @@
         <q-item-label header>Menu Principal</q-item-label>
         <q-item clickable tag="a" href="/">
           <q-item-section avatar>
-            <q-icon name="fas fa-caret-right" />
+            <q-icon name="fas fa-home" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Início</q-item-label>
             <q-item-label caption>Página inicial</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" href="/pokemon-list">
+        <q-item clickable tag="a" href="/pokemons">
           <q-item-section avatar>
             <img
               src="~assets/Psyduck.svg"
-              style="width:25vw;max-width:30px;"
+              style="width:25vw;max-width:24px;"
             >
           </q-item-section>
           <q-item-section>
             <q-item-label>Pokémons</q-item-label>
             <q-item-label caption>Lista de pokémons</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="https://pokeapi.co/">
+          <q-item-section avatar>
+            <q-icon name="fas fa-link" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>PokéAPI</q-item-label>
+            <q-item-label caption>The RESTful Pokémon API</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" target="_blank" href="https://github.com/ltrindadebr/pokemonApp">
