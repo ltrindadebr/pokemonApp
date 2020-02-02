@@ -1,8 +1,8 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row">
-      <div class="col-sm-12 col-md-3" v-for="pokemon in ListaPokemon" :key="pokemon">
-        <cardPokemon :ListaPokemon=pokemon></cardPokemon>
+      <div class="col-sm-12 col-md-3" v-for="(pokemon, index) in ListaPokemon" :key="index">
+        <cardPokemon :ListaPokemon='pokemon'></cardPokemon>
       </div>
     </div>
   </q-page>
@@ -28,7 +28,7 @@ export default {
   },
 
   methods: {
-    carregaPokemons() {
+    async carregaPokemons() {
       const headers = {
         headers: {
           'content-type': 'application/octet-stream',
@@ -36,7 +36,7 @@ export default {
           'x-rapidapi-key': '230bf97e05msh62ac1484d005186p17c184jsnc55202ddc349',
         },
       };
-      this.$axios
+      await this.$axios
         .get('https://pokemon-go1.p.rapidapi.com/pokemon_names.json', headers)
         .then((response) => {
           this.ListaPokemon = response.data;
