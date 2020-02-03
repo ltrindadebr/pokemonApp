@@ -72,14 +72,22 @@ export default {
     },
 
     carregaInformacoes() {
+      this.organizaNomes();
+      this.organizaImagens();
+    },
+
+    organizaNomes() {
       const names = [];
       this.AllPokemons.forEach((pokemon) => {
         pokemon.name = this.corrigeNome(pokemon.name);
         names.push({ name: pokemon.name });
       });
-
       this.Pokemon = names;
-      console.log(this.Pokemon);
+    },
+
+    organizaImagens() {
+      const imagem = this.getPokemon(this.AllPokemons[0].name);
+      console.log(imagem);
     },
 
     async getPokemon(ID) {
