@@ -1,12 +1,12 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row">
-      <div class="col-sm-12 col-md-3">
+      <div class="col-sm-6 col-md-3" v-for="(pokemon, index) in Pokemon" :key="index">
         <q-card class="my-card">
-          <q-img v-bind:src="Pokemon.sprites.front_default" basic>
+          <q-img v-bind:src="pokemon.image" basic>
             <div
               class="absolute-bottom text-subtitle2 text-center"
-            >#{{ Pokemon.id }} - {{ Pokemon.name }}</div>
+            >#ID - {{ pokemon.name }}</div>
           </q-img>
           <q-list>
             <q-item clickable>
@@ -15,7 +15,7 @@
               </q-item-section>
               <q-item-section>
                 <q-item-label>Types:</q-item-label>
-                <q-item-label caption>#{{ Pokemon.types }}</q-item-label>
+                <q-item-label caption>#{{ pokemon.type }}</q-item-label>
               </q-item-section>
             </q-item>
 
@@ -34,38 +34,68 @@
     </div>
   </q-page>
 </template>
-
 <script>
 export default {
   name: 'ListaDePokemons',
 
   data() {
     return {
-      Pokemon: {
-        name: '',
-        sprites: {},
+      AllPokemons: {},
+      Pokemon: [
+        {
+          name: '',
+          image: 'https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_001_00.png',
+        },
+      ],
+      Page: {
+        actual: '',
+        next: 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20',
       },
     };
   },
 
   created() {
-    this.getPokemons();
+    this.getAllPokemons();
+    // this.getPokemons();
   },
 
   methods: {
-    async getPokemons() {
+    async getAllPokemons() {
+      this.$axios.get(this.Page.next).then((response) => {
+        this.Page.actual = this.Page.next;
+        this.Page.next = response.data.next;
+        this.AllPokemons = response.data.results;
+        console.log('Pagina atual: ', this.Page.actual);
+        console.log('Próxima página: ', this.Page.next);
+        this.carregaInformacoes();
+      });
+    },
+
+    carregaInformacoes() {
+      const names = [];
+      this.AllPokemons.forEach((pokemon) => {
+        pokemon.name = this.corrigeNome(pokemon.name);
+        names.push({ name: pokemon.name });
+      });
+
+      this.Pokemon = names;
+      console.log(this.Pokemon);
+    },
+
+    async getPokemon(ID) {
       const apiData = {
         url: 'https://pokeapi.co/api/v2/',
         type: 'pokemon',
-        id: '1',
+        id: ID,
       };
 
       const { url, type, id } = apiData;
       const apiUrl = `${url}${type}/${id}`;
 
-      this.$axios.get(apiUrl).then((response) => {
+      await this.$axios.get(apiUrl).then((response) => {
         this.Pokemon = response.data;
         this.trataInformacoes();
+        return this.Pokemon;
       });
     },
 
@@ -89,3 +119,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.my-card {
+  width: 100%;
+  max-width: 220px;
+  margin-bottom: 10px;
+}
+</style>
