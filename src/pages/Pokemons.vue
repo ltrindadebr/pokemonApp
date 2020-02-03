@@ -11,7 +11,7 @@
           <q-list>
             <q-item clickable>
               <q-item-section avatar>
-                <q-icon color="primary" name="local_bar" />
+                <q-icon color="yellow" name="blur_circular" />
               </q-item-section>
               <q-item-section>
                 <q-item-label>Types:</q-item-label>
@@ -21,11 +21,11 @@
 
             <q-item clickable>
               <q-item-section avatar>
-                <q-icon color="primary" name="local_bar" />
+                <q-icon color="primary" name="public" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>{{ Pokemon.name }}</q-item-label>
-                <q-item-label caption>#{{ Pokemon.id }}</q-item-label>
+                <q-item-label>Region</q-item-label>
+                <q-item-label caption>Preencher</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>

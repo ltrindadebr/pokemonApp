@@ -29,7 +29,7 @@
         <q-item-label header>Menu Principal</q-item-label>
         <q-item clickable tag="a" href="/">
           <q-item-section avatar>
-            <q-icon name="fas fa-home" />
+            <q-icon name="home" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Início</q-item-label>
@@ -50,7 +50,7 @@
         </q-item>
         <q-item clickable tag="a" target="_blank" href="https://pokeapi.co/">
           <q-item-section avatar>
-            <q-icon name="fas fa-link" />
+            <q-icon name="link" />
           </q-item-section>
           <q-item-section>
             <q-item-label>PokéAPI</q-item-label>
