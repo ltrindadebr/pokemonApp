@@ -49,7 +49,7 @@ export default {
       ],
       Page: {
         actual: '',
-        next: 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20',
+        next: 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=5',
       },
     };
   },
@@ -65,8 +65,8 @@ export default {
         this.Page.actual = this.Page.next;
         this.Page.next = response.data.next;
         this.AllPokemons = response.data.results;
-        console.log('Pagina atual: ', this.Page.actual);
-        console.log('Próxima página: ', this.Page.next);
+        // console.log('Pagina atual: ', this.Page.actual);
+        // console.log('Próxima página: ', this.Page.next);
         this.carregaInformacoes();
       });
     },
@@ -77,17 +77,40 @@ export default {
     },
 
     organizaNomes() {
-      const names = [];
+      const nameAndUrl = [];
       this.AllPokemons.forEach((pokemon) => {
         pokemon.name = this.corrigeNome(pokemon.name);
-        names.push({ name: pokemon.name });
+        nameAndUrl.push(
+          {
+            name: pokemon.name,
+            url: pokemon.url,
+          },
+        );
       });
-      this.Pokemon = names;
+      this.Pokemon = nameAndUrl;
+      // console.log(this.Pokemon);
     },
 
-    organizaImagens() {
-      const imagem = this.getPokemon(this.AllPokemons[0].name);
-      console.log(imagem);
+    async organizaImagens() {
+      const image = [];
+      this.Pokemon.forEach((pokemon) => {
+        this.$axios.get(pokemon.url).then((response) => {
+          image.push(
+            {
+              image: response.data.sprites.front_default,
+            },
+          );
+        });
+      });
+
+      // let result = this.Pokemon;
+      // this.Pokemon.forEach((pokemon) => {
+      //   result = Object.assign(pokemon, image);
+      // });
+
+      // console.log(result);
+      // this.Pokemon = Object.assign(this.Pokemon, image);
+      // console.log(this.Pokemon);
     },
 
     async getPokemon(ID) {
