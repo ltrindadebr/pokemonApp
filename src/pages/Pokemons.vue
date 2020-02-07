@@ -69,6 +69,7 @@ export default {
     async getInfos() {
       await this.getNamesAndUrl();
       await this.getImages();
+      await this.mountData();
       // console.log(this.name);
       // console.log(this.url);
       // console.log(this.image);
@@ -86,7 +87,7 @@ export default {
       this.url.forEach((url) => {
         this.$axios.get(url).then((response) => {
           this.image.push(response.data.sprites.front_default);
-          this.getTypes(response.data.types);
+          // this.getTypes(response.data.types);
         });
       });
     },
@@ -94,12 +95,24 @@ export default {
     async getTypes(types) {
       const base = [];
       types.forEach((type) => {
-        base.push(type.type.name);
+        base.push(type.type);
       });
-      // console.log(base);
-      base.forEach((type) => {
-        console.log(type);
+
+      base.forEach((element) => {
+        console.log(element);
       });
+      // this.type.push(base);
+      // console.log(this.type);
+    },
+
+    async mountData() {
+      console.log(this.name.length);
+      // this.pokemon = {
+      //   a: this.name,
+      //   b: this.url,
+      //   c: this.image,
+      // };
+      // console.log(this.pokemon);
     },
   },
 };
