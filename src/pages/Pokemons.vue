@@ -43,8 +43,8 @@ export default {
       pokemons: [],
       name: [],
       url: [],
-      type: [],
       image: [],
+      type: [],
       page: {
         actual: '',
         next: 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=3',
@@ -80,7 +80,7 @@ export default {
         this.name.push(pokemon.name);
         this.url.push(pokemon.url);
       });
-      // this.getImages();
+      this.getImages();
     },
 
     async getImages() {
@@ -106,13 +106,15 @@ export default {
     },
 
     async mountData() {
-      console.log(this.name.length);
-      // this.pokemon = {
-      //   a: this.name,
-      //   b: this.url,
-      //   c: this.image,
-      // };
-      // console.log(this.pokemon);
+      const object = {};
+      const array = [];
+      for (let i = 0; i < this.url.length; i += 1) {
+        object.name = this.name[i];
+        object.url = this.url[i];
+        // object.image = this.image[i];
+        array[i] = object;
+      }
+      console.log(array);
     },
   },
 };
