@@ -40,10 +40,11 @@ export default {
 
   data() {
     return {
-      pokemons: {},
+      pokemons: [],
       name: [],
       url: [],
       type: [],
+      image: [],
       page: {
         actual: '',
         next: 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=3',
@@ -53,25 +54,52 @@ export default {
 
   created() {
     this.paginate();
-    this.getNames();
   },
 
   methods: {
     async paginate() {
-      this.$axios.get(this.page.next).then((response) => {
+      await this.$axios.get(this.page.next).then((response) => {
         this.page.actual = this.page.next;
         this.page.next = response.data.next;
         this.pokemons = response.data.results;
-        console.log(this.pokemons);
+      });
+      this.getInfos();
+    },
+
+    async getInfos() {
+      await this.getNamesAndUrl();
+      await this.getImages();
+      // console.log(this.name);
+      // console.log(this.url);
+      // console.log(this.image);
+    },
+
+    async getNamesAndUrl() {
+      this.pokemons.forEach((pokemon) => {
+        this.name.push(pokemon.name);
+        this.url.push(pokemon.url);
+      });
+      // this.getImages();
+    },
+
+    async getImages() {
+      this.url.forEach((url) => {
+        this.$axios.get(url).then((response) => {
+          this.image.push(response.data.sprites.front_default);
+          this.getTypes(response.data.types);
+        });
       });
     },
-    async getNames() {
-      const names = [];
-      this.pokemons.forEach((pokemon) => {
-        names.push(pokemon.name);
+
+    async getTypes(types) {
+      const base = [];
+      types.forEach((type) => {
+        base.push(type.type.name);
       });
-      this.name = names;
-      console.log(this.name);
+      // console.log(base);
+      base.forEach((type) => {
+        console.log(type);
+      });
     },
   },
 };
